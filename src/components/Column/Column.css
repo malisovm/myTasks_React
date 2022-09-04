@@ -1,0 +1,62 @@
+.column {
+  padding: 10px;
+  border-radius: 5px; /*outline when dragged*/
+}
+
+button.add {
+  background: transparent;
+  color: white;
+  border-style: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  font-weight: bold;
+  font-size: 12pt;
+  text-align: left;
+  width: 200px;
+  margin-top: 15px;
+}
+
+button.add:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.columnHeader {
+  background: transparent;
+  color: white;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  font-weight: bold;
+  font-size: 12pt;
+  border: 0px solid;
+  width: 180px;
+}
+
+.columnHeader:hover {
+  opacity: 0.8;
+}
+
+.deleteColumnButton {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  font-weight: bold;
+  font-size: 12pt;
+  background-color: red;
+  color: white;
+  border-style: none;
+  font-weight: 600;
+  display: none;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+.deleteColumnButton:hover {
+  opacity: 0.8;
+}
+
+.deleteButtonContainer:focus-within .deleteColumnButton {
+  display: block;
+}

@@ -1,0 +1,14 @@
+#helpHeader {
+  margin-left: 25px;
+  margin-top: 25px;
+  white-space: pre-wrap;
+  font-weight: bold;
+}
+
+.help {
+  margin-left: 25px;
+  margin-top: 15px;
+  white-space: pre-wrap;
+  max-width: 90%;
+  max-width: 600px;
+}

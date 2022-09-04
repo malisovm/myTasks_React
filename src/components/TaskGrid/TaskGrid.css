@@ -1,0 +1,18 @@
+#task-grid {
+  display: grid;
+  column-gap: 5px;
+  grid-template-columns: minmax(auto, 236px);
+  align-items: flex-start;
+  margin-top: 15px;
+  float: left;
+}
+
+#taskGridContainer {
+  position: relative;
+  padding-left: 15px;
+}
+
+.addTaskType {
+  float: left;
+  padding: 9px;
+}

@@ -21,3 +21,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+scheme.drawio
+src/data/dataStructure.drawio
+src/components/TaskGrid/dataStructure.drawio

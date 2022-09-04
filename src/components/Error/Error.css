@@ -1,0 +1,11 @@
+#sadFace {
+  margin-top: 50px;
+  text-align: center;
+  font-size: 70pt;
+}
+
+#errorMessage {
+  margin-top: 10px;
+  font-size: 12pt;
+  text-align: center;
+}
