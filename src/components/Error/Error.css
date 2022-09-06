@@ -1,10 +1,10 @@
 #sadFace {
   margin-top: 50px;
-  text-align: center;
   font-size: 70pt;
+  text-align: center;
 }
 
-#errorMessage {
+.errorDiv {
   margin-top: 10px;
   font-size: 12pt;
   text-align: center;

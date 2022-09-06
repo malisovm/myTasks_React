@@ -1,26 +1,16 @@
 import React, { useState } from 'react'
 import './TaskGrid.css'
 import { Column } from '../Column/Column'
-import { savedTasks, savedTaskTypes } from './mockData'
+//import { savedTasks, savedTaskTypes } from './mockData'
 import { DragDropContext, DropResult } from '@hello-pangea/dnd'
-import { ITask, ITaskType } from '../../interfaces'
-
-const savedData = savedTaskTypes.map((taskType: ITaskType, index) => {
-  let thisColumnTasks: ITask[] = []
-  savedTasks.forEach((task) => {
-    if (task.column === taskType.column) {
-      thisColumnTasks.push(task)
-    }
-  })
-  taskType.tasks = thisColumnTasks
-  return taskType
-})
+import { ITaskType } from '../../interfaces'
 
 export function TaskGrid(props: {
   bodyBgColor: string
   setDarkenLayer: (darkenLayer: string) => void
+  savedData: ITaskType[]
 }) {
-  const [currTaskGrid, setCurrTaskGrid] = useState(savedData)
+  const [currTaskGrid, setCurrTaskGrid] = useState(props.savedData)
   return (
     <div id="taskGridContainer">
       <div id="task-grid" className="float-left">
