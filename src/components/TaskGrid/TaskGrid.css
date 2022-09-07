@@ -1,7 +1,7 @@
 #task-grid {
   display: grid;
   column-gap: 5px;
-  grid-template-columns: minmax(auto, 236px);
+  grid-template-columns: minmax(0px, 236px);
   align-items: flex-start;
   margin-top: 15px;
   float: left;

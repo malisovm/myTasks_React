@@ -65,7 +65,7 @@ export function Task(props: IDraggable) {
                     const newTaskGrid: ITaskType[] = [...props.currTaskGrid]
                     const column: ITaskType = newTaskGrid[props.column - 1]
                     const task: ITask = column.tasks[props.index - 1]
-                    task.text = event.currentTarget.value
+                    task.text = event.currentTarget.value.trim()
                     axios
                       .put(
                         '/tasks',

@@ -38,7 +38,7 @@ const Task = mongoose.model('Task', tasksScheme)
 const tasksTypeScheme = new Schema({
   _id: { type: String, required: true },
   column: { type: Number, required: true },
-  text: { type: String, default: 'Enter task type' },
+  text: { type: String },
 })
 const TaskType = mongoose.model('TaskType', tasksTypeScheme)
 

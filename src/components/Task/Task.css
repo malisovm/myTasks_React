@@ -24,6 +24,7 @@
   min-height: 25px;
   height: fit-content;
   white-space: pre-wrap;
+  overflow-wrap: break-word;
   resize: none;
   cursor: pointer;
 }

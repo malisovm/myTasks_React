@@ -45,7 +45,7 @@ export function TaskGrid(props: {
           const newColumn: ITaskType = {
             _id: String(Math.random()).substring(1).replace(/\./g, ''),
             column: newTaskGrid.length + 1,
-            text: 'Enter task type',
+            text: '',
             tasks: [],
           }
           newTaskGrid.push(newColumn)

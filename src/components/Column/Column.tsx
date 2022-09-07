@@ -27,6 +27,7 @@ export function Column(props: IDroppable) {
           <span className="columnTitleContainer">
             <input
               defaultValue={props.title}
+              placeholder="Enter task type"
               className="columnHeader"
               onChange={(event) => {
                 axios
