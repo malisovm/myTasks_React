@@ -3,6 +3,7 @@ import './Task.css'
 import { IDraggable, ITask, ITaskType } from '../../interfaces'
 import { Draggable } from '@hello-pangea/dnd'
 import { ContextMenu } from '../ContextMenu/ContextMenu'
+import axios from 'axios'
 
 export function Task(props: IDraggable) {
   const [clicked, setClicked] = useState(false)
@@ -32,11 +33,7 @@ export function Task(props: IDraggable) {
   return (
     <Draggable draggableId={props.draggableId} index={props.index}>
       {(provided, snapshot) => (
-        <div
-          id="taskContainer"
-          ref={ref} // WHY LEGACY REF?
-          onClick={() => {}}
-        >
+        <div id="taskContainer" ref={ref} onClick={() => {}}>
           <div
             onClick={(event) => setClicked(true)}
             ref={provided.innerRef}
@@ -69,6 +66,13 @@ export function Task(props: IDraggable) {
                     const column: ITaskType = newTaskGrid[props.column - 1]
                     const task: ITask = column.tasks[props.index - 1]
                     task.text = event.currentTarget.value
+                    axios
+                      .put(
+                        '/tasks',
+                        { text: task.text },
+                        { headers: { id: task._id } }
+                      )
+                      .then((response) => console.log(response.data))
                     props.setCurrTaskGrid(newTaskGrid) // WHY DOES IT WORK WITHOUT THIS LINE??
                   }}
                 ></textarea>

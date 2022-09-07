@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React from 'react'
 import { HexColorPicker } from 'react-colorful'
 
@@ -19,6 +20,11 @@ export function BgColor(props: {
         id="bgColorPicker"
         color={props.bodyBgColor}
         onChange={(event) => {
+          axios.put(
+            '/globals',
+            { value: event },
+            { headers: { id: 'bodyColor' } }
+          ).then((response) => console.log(response.data))
           props.setBodyBgColor(event)
         }}
       />

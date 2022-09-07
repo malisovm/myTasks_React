@@ -33,7 +33,7 @@ function App() {
             let thisColumnTasks: ITask[] = []
             savedTasks.data.forEach((task) => {
               if (task.column === taskType.column) {
-                thisColumnTasks.push(task)
+                thisColumnTasks.splice(task.row-1, 0, task)
               }
             })
             taskType.tasks = thisColumnTasks
@@ -41,6 +41,7 @@ function App() {
           }
         )
         setSavedData(savedData)
+        console.log('Server: found data', savedData)
         setBodyBgColor(globals.data.value)
         setLoading(false)
       } catch (error: any) {
@@ -66,8 +67,7 @@ function App() {
               <TaskGrid
                 bodyBgColor={bodyBgColor}
                 setDarkenLayer={setDarkenLayer}
-                //@ts-ignore
-                savedData={savedData}
+                savedData={savedData!}
               />
             }
           />

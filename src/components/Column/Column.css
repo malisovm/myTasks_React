@@ -57,6 +57,6 @@ button.add:hover {
   opacity: 0.8;
 }
 
-.deleteButtonContainer:focus-within .deleteColumnButton {
+.columnTitleContainer:focus-within .deleteColumnButton {
   display: block;
 }

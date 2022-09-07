@@ -5,6 +5,7 @@ import { IDroppable, ITask, ITaskType } from '../../interfaces'
 import { Task } from '../Task/Task'
 // @ts-ignore
 import { LightenDarkenColor } from 'lighten-darken-color'
+import axios from 'axios'
 
 export function Column(props: IDroppable) {
   var bgColorOnDrag = LightenDarkenColor(props.bodyBgColor, 30)
@@ -23,17 +24,61 @@ export function Column(props: IDroppable) {
           {...provided.droppableProps}
           className="column"
         >
-          <span className="deleteButtonContainer">
-            <input defaultValue={props.title} className="columnHeader"></input>
+          <span className="columnTitleContainer">
+            <input
+              defaultValue={props.title}
+              className="columnHeader"
+              onChange={(event) => {
+                axios
+                  .put(
+                    '/tasktypes',
+                    { text: event.currentTarget.value },
+                    {
+                      headers: { id: props.droppableId },
+                    }
+                  )
+                  .then((response) => console.log(response.data))
+              }}
+            ></input>
+
             <button
               className="deleteColumnButton"
               onClick={() => {
                 const newTaskGrid: ITaskType[] = [...props.currTaskGrid]
+                const column: ITaskType = newTaskGrid[props.column - 1]
+                column.tasks.forEach((task) => {
+                  axios
+                    .delete('/tasks', {
+                      headers: { id: task._id },
+                    })
+                    .then((response) => console.log(response.data))
+                })
+                axios
+                  .delete('/tasktypes', {
+                    headers: { id: props.droppableId },
+                  })
+                  .then((response) => console.log(response.data))
                 newTaskGrid.splice(props.column - 1, 1)
                 newTaskGrid.forEach((column) => {
                   column.column = newTaskGrid.indexOf(column) + 1
+                  axios
+                    .put(
+                      '/tasktypes',
+                      { column: column.column },
+                      {
+                        headers: { id: column._id },
+                      }
+                    )
+                    .then((response) => console.log(response.data))
+                  // change columnNum of tasks in each column
+                  column.tasks.forEach((task) => {
+                    axios.put(
+                      '/tasks',
+                      { column: column.column },
+                      { headers: { id: task._id } }
+                    )
+                  })
                 })
-                console.log(newTaskGrid)
                 props.setCurrTaskGrid(newTaskGrid)
               }}
             >
@@ -66,7 +111,7 @@ export function Column(props: IDroppable) {
                 const newTaskGrid: ITaskType[] = [...props.currTaskGrid]
                 const column: ITaskType = newTaskGrid[props.column - 1]
                 const newTask: ITask = {
-                  _id: String(Math.random()).substring(1).replace(/\./g, ''), // this is a placeholder id
+                  _id: String(Math.random()).substring(1).replace(/\./g, ''),
                   column: props.column,
                   row: column.tasks.length + 1,
                   text: '',
@@ -74,6 +119,13 @@ export function Column(props: IDroppable) {
                 }
                 column.tasks.push(newTask)
                 console.log(newTaskGrid)
+                axios
+                  .post(
+                    '/tasks',
+                    { column: newTask.column, row: newTask.row },
+                    { headers: { id: newTask._id } }
+                  )
+                  .then((response) => console.log(response.data))
                 props.setCurrTaskGrid(newTaskGrid)
               }}
             >

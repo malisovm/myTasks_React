@@ -10,7 +10,7 @@ const JSONParser = express.json({ type: 'application/json' })
 
 mongoose.connect(
   //atlas mongodb
-  'mongodb+srv://user12345:12345@cluster1.mgmwwie.mongodb.net',
+  'mongodb+srv://user12345:12345@cluster1.mgmwwie.mongodb.net/myTasks_react',
   //'mongodb://localhost:27017/tasksdb',
   {
     useUnifiedTopology: true,
@@ -27,6 +27,7 @@ mongoose.connect(
 )
 
 const tasksScheme = new Schema({
+  _id: { type: String, required: true },
   column: { type: Number, required: true },
   row: { type: Number, required: true },
   text: { type: String, default: '' },
@@ -35,7 +36,8 @@ const tasksScheme = new Schema({
 const Task = mongoose.model('Task', tasksScheme)
 
 const tasksTypeScheme = new Schema({
-  column: Number,
+  _id: { type: String, required: true },
+  column: { type: Number, required: true },
   text: { type: String, default: 'Enter task type' },
 })
 const TaskType = mongoose.model('TaskType', tasksTypeScheme)
@@ -59,6 +61,7 @@ Global.findById('bodyColor', (err, found) => {
 
 expressServer.post('/tasks', JSONParser, async (request, response) => {
   let newTask = new Task(request.body)
+  newTask._id = request.headers.id
   await newTask
     .save()
     .then(() => {
@@ -72,6 +75,7 @@ expressServer.post('/tasks', JSONParser, async (request, response) => {
 
 expressServer.post('/tasktypes', JSONParser, async (request, response) => {
   let newTaskType = new TaskType(request.body)
+  newTaskType._id = request.headers.id
   await newTaskType
     .save()
     .then(() => {
@@ -163,8 +167,11 @@ expressServer.get('/tasktypes', (request, response) => {
 })
 
 expressServer.get('/globals', (request, response) => {
-  Global.findById(request.headers.id.replace(/['"]+/g, ''), function (err, foundVar) {
-    if (err) console.log(err)
-    response.send(foundVar)
-  })
+  Global.findById(
+    request.headers.id.replace(/['"]+/g, ''),
+    function (err, foundVar) {
+      if (err) console.log(err)
+      response.send(foundVar)
+    }
+  )
 })

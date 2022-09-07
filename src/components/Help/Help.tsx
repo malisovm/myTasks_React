@@ -6,10 +6,7 @@ export function Help() {
     <>
       <div id="helpHeader">What is this app all about?</div>
       <div className="help">
-        This is a Kanban-style task board. You create tasks and drag'n'drop them
-        into columns by type. You can also highlight certain tasks assigning
-        colors to them (click/tap on a task and select "Change color" from the
-        menu).
+        This is a Kanban-style task board. You can create tasks and group them by types by drag'n'dropping them into columns. You can also highlight certain tasks by assigning colors to them (click/tap on a task and select "Change color" from the menu).
       </div>
       <div className="help">
         You can also create new columns and rename them. To remove a column,

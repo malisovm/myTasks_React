@@ -4,6 +4,7 @@ import { Column } from '../Column/Column'
 //import { savedTasks, savedTaskTypes } from './mockData'
 import { DragDropContext, DropResult } from '@hello-pangea/dnd'
 import { ITaskType } from '../../interfaces'
+import axios from 'axios'
 
 export function TaskGrid(props: {
   bodyBgColor: string
@@ -42,13 +43,20 @@ export function TaskGrid(props: {
         onClick={() => {
           const newTaskGrid: ITaskType[] = [...currTaskGrid]
           const newColumn: ITaskType = {
-            _id: String(Math.random()).substring(1).replace(/\./g, ''), // this is a placeholder id
+            _id: String(Math.random()).substring(1).replace(/\./g, ''),
             column: newTaskGrid.length + 1,
             text: 'Enter task type',
             tasks: [],
           }
           newTaskGrid.push(newColumn)
           setCurrTaskGrid(newTaskGrid)
+          axios
+            .post(
+              '/tasktypes',
+              { column: newColumn.column },
+              { headers: { id: newColumn._id } }
+            )
+            .then((response) => console.log(response.data))
         }}
       >
         + Add task type
@@ -80,10 +88,24 @@ const dragEndHandler = (
       sourceTasks.forEach((task) => {
         task.row = sourceTasks.indexOf(task) + 1
         task.column = newTaskGrid.indexOf(sourceColumn) + 1
+        axios
+          .put(
+            '/tasks',
+            { column: task.column, row: task.row },
+            { headers: { id: task._id } }
+          )
+          .then((response) => console.log(response.data))
       })
       destTasks.forEach((task) => {
         task.row = destTasks.indexOf(task) + 1
         task.column = newTaskGrid.indexOf(destColumn) + 1
+        axios
+          .put(
+            '/tasks',
+            { column: task.column, row: task.row },
+            { headers: { id: task._id } }
+          )
+          .then((response) => console.log(response.data))
       })
       sourceColumn.tasks = sourceTasks
       destColumn.tasks = destTasks
@@ -96,6 +118,9 @@ const dragEndHandler = (
       tasks.splice(destination.index - 1, 0, removedTask)
       tasks.forEach((task) => {
         task.row = tasks.indexOf(task) + 1
+        axios
+          .put('/tasks', { row: task.row }, { headers: { id: task._id } })
+          .then((response) => console.log(response.data))
       })
       column.tasks = tasks
     }

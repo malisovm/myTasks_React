@@ -2,6 +2,7 @@ import React from 'react'
 import './ContextMenu.css'
 import { ITaskType, IContextMenu } from '../../interfaces'
 import { HexColorPicker } from 'react-colorful'
+import axios from 'axios'
 
 export function ContextMenu(props: IContextMenu) {
   return (
@@ -23,6 +24,10 @@ export function ContextMenu(props: IContextMenu) {
             column.tasks.forEach((task) => {
               task.row = column.tasks.indexOf(task) + 1
             })
+            axios.delete('/tasks', {
+              headers: { id: props.draggableId },
+            })
+            .then((response) => console.log(response.data))
             props.setCurrTaskGrid(newTaskGrid)
           }}
         >
@@ -49,6 +54,12 @@ export function ContextMenu(props: IContextMenu) {
               )
               if (taskToChangeColor) {
                 taskToChangeColor.color = event
+                axios.put(
+                  '/tasks',
+                  { color: taskToChangeColor.color },
+                  { headers: { id: taskToChangeColor._id } }
+                )
+                .then((response) => console.log(response.data))
               }
               props.setCurrTaskGrid(newTaskGrid)
             }}
