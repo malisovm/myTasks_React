@@ -10,6 +10,7 @@ export function Task(props: IDraggable) {
   const [color, setColor] = useState(props.color)
   const taskRef = useRef<HTMLDivElement>(null)
   const [colorPicker, showColorPicker] = useState(false)
+  const [currHeight, setCurrHeight] = useState<Number>(0)
 
   useEffect(() => {
     const checkIfClickedOutside = (event: MouseEvent) => {
@@ -52,6 +53,7 @@ export function Task(props: IDraggable) {
                   onFocus={(event) => {
                     event.currentTarget.style.height =
                       event.target.scrollHeight - 1 + 'px'
+                      setCurrHeight(event.target.scrollHeight)
                     const end = event.currentTarget.value.length
                     event.target.setSelectionRange(end, end) // set cursor to the end of text
                     props.setDarkenLayer('block')
@@ -63,6 +65,7 @@ export function Task(props: IDraggable) {
                     event.currentTarget.style.height = '1px'
                     event.currentTarget.style.height =
                       event.currentTarget.scrollHeight + 'px'
+                      setCurrHeight(event.currentTarget.scrollHeight)
                   }}
                   onBlur={(event) => {
                     const newTaskGrid: ITaskType[] = [...props.currTaskGrid]
@@ -95,6 +98,8 @@ export function Task(props: IDraggable) {
             setColor={setColor}
             colorPicker={colorPicker}
             showColorPicker={showColorPicker}
+            //@ts-ignore
+            height={currHeight+26}
           ></ContextMenu>
         </div>
       )}

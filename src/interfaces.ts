@@ -33,6 +33,7 @@ export interface IContextMenu {currTaskGrid: ITaskType[]
   setColor: (color: string) => void
   colorPicker: boolean
   showColorPicker: (colorPicker: boolean) => void
+  height: number
 }
 
 export interface ITask {

@@ -6,7 +6,7 @@ import axios from 'axios'
 
 export function ContextMenu(props: IContextMenu) {
   return (
-    <div id="contextMenu" style={{ display: props.clicked ? 'block' : 'none' }}>
+    <div id="contextMenu" style={{ display: props.clicked ? 'block' : 'none', top: props.height }}>
       <>
         <div
           className="menuItem"
