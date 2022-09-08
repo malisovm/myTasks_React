@@ -42,27 +42,27 @@ const tasksTypeScheme = new Schema({
 })
 const TaskType = mongoose.model('TaskType', tasksTypeScheme)
 
-const globalScheme = new Schema(
+const globalVarsScheme = new Schema(
   {
     value: String,
     _id: String,
   },
   { _id: false }
 )
-const Global = mongoose.model('Global', globalScheme)
+const GlobalVar = mongoose.model('GlobalVars', globalVarsScheme)
 
-Global.findById('bodyColor', (err, found) => {
+GlobalVar.findById('bodyColor', (err, found) => {
   if (!found) {
-    const bodyColor = new Global({ value: '#7f3594' })
+    const bodyColor = new GlobalVar({ value: '#7f3594' })
     bodyColor._id = 'bodyColor'
     bodyColor.save()
   }
 })
 
-expressServer.post('/tasks', JSONParser, async (request, response) => {
+expressServer.post('/tasks', JSONParser, (request, response) => {
   let newTask = new Task(request.body)
   newTask._id = request.headers.id
-  await newTask
+  newTask
     .save()
     .then(() => {
       console.log(`Created task "${newTask._id}"`)
@@ -73,10 +73,10 @@ expressServer.post('/tasks', JSONParser, async (request, response) => {
     })
 })
 
-expressServer.post('/tasktypes', JSONParser, async (request, response) => {
+expressServer.post('/tasktypes', JSONParser, (request, response) => {
   let newTaskType = new TaskType(request.body)
   newTaskType._id = request.headers.id
-  await newTaskType
+  newTaskType
     .save()
     .then(() => {
       console.log(`Created task type "${newTaskType._id}"`)
@@ -87,8 +87,8 @@ expressServer.post('/tasktypes', JSONParser, async (request, response) => {
     })
 })
 
-expressServer.put('/tasks', JSONParser, async (request, response) => {
-  await Task.findByIdAndUpdate(request.headers.id.replace(/['"]+/g, ''), {
+expressServer.put('/tasks', JSONParser, (request, response) => {
+  Task.findByIdAndUpdate(request.headers.id.replace(/['"]+/g, ''), {
     column: request.body.column,
     row: request.body.row,
     text: request.body.text,
@@ -103,8 +103,8 @@ expressServer.put('/tasks', JSONParser, async (request, response) => {
     })
 })
 
-expressServer.put('/tasktypes', JSONParser, async (request, response) => {
-  await TaskType.findByIdAndUpdate(request.headers.id.replace(/['"]+/g, ''), {
+expressServer.put('/tasktypes', JSONParser, (request, response) => {
+  TaskType.findByIdAndUpdate(request.headers.id.replace(/['"]+/g, ''), {
     column: request.body.column,
     text: request.body.text,
   })
@@ -117,8 +117,8 @@ expressServer.put('/tasktypes', JSONParser, async (request, response) => {
     })
 })
 
-expressServer.put('/globals', JSONParser, async (request, response) => {
-  await Global.findByIdAndUpdate(request.headers.id.replace(/['"]+/g, ''), {
+expressServer.put('/globalVars', JSONParser, (request, response) => {
+  GlobalVar.findByIdAndUpdate(request.headers.id.replace(/['"]+/g, ''), {
     value: request.body.value,
   })
     .then(() => {
@@ -166,8 +166,8 @@ expressServer.get('/tasktypes', (request, response) => {
   })
 })
 
-expressServer.get('/globals', (request, response) => {
-  Global.findById(
+expressServer.get('/globalVars', (request, response) => {
+  GlobalVar.findById(
     request.headers.id.replace(/['"]+/g, ''),
     function (err, foundVar) {
       if (err) console.log(err)

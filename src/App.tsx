@@ -23,7 +23,7 @@ function App() {
       try {
         let savedTasks = await axios.get<ITask[]>('/tasks')
         let savedTaskTypes = await axios.get<ITaskType[]>('/tasktypes')
-        let globals = await axios.get('/globals', {
+        let globals = await axios.get('/globalVars', {
           headers: {
             id: 'bodyColor',
           },
@@ -33,7 +33,7 @@ function App() {
             let thisColumnTasks: ITask[] = []
             savedTasks.data.forEach((task) => {
               if (task.column === taskType.column) {
-                thisColumnTasks.splice(task.row-1, 0, task)
+                thisColumnTasks.splice(task.row - 1, 0, task)
               }
             })
             taskType.tasks = thisColumnTasks

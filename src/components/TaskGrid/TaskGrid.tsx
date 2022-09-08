@@ -48,8 +48,6 @@ export function TaskGrid(props: {
             text: '',
             tasks: [],
           }
-          newTaskGrid.push(newColumn)
-          setCurrTaskGrid(newTaskGrid)
           axios
             .post(
               '/tasktypes',
@@ -57,6 +55,8 @@ export function TaskGrid(props: {
               { headers: { id: newColumn._id } }
             )
             .then((response) => console.log(response.data))
+          newTaskGrid.push(newColumn)
+          setCurrTaskGrid(newTaskGrid)
         }}
       >
         + Add task type

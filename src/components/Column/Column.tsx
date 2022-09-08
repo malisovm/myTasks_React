@@ -71,7 +71,6 @@ export function Column(props: IDroppable) {
                       }
                     )
                     .then((response) => console.log(response.data))
-                  // change columnNum of tasks in each column
                   column.tasks.forEach((task) => {
                     axios.put(
                       '/tasks',
@@ -118,8 +117,6 @@ export function Column(props: IDroppable) {
                   text: '',
                   color: '#ffffff',
                 }
-                column.tasks.push(newTask)
-                console.log(newTaskGrid)
                 axios
                   .post(
                     '/tasks',
@@ -128,6 +125,7 @@ export function Column(props: IDroppable) {
                   )
                   .then((response) => console.log(response.data))
                 props.setCurrTaskGrid(newTaskGrid)
+                column.tasks.push(newTask)
               }}
             >
               + Add task

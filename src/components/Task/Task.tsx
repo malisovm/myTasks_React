@@ -8,20 +8,21 @@ import axios from 'axios'
 export function Task(props: IDraggable) {
   const [clicked, setClicked] = useState(false)
   const [color, setColor] = useState(props.color)
-  const ref = useRef<HTMLDivElement>(null)
+  const taskRef = useRef<HTMLDivElement>(null)
   const [colorPicker, showColorPicker] = useState(false)
 
   useEffect(() => {
     const checkIfClickedOutside = (event: MouseEvent) => {
       if (
         clicked &&
-        ref.current &&
-        !ref.current.contains(event.target as Node)
+        taskRef.current &&
+        !taskRef.current.contains(event.target as Node)
       ) {
+        taskRef.current.getElementsByTagName('textarea')[0].blur()
         setClicked(false)
         showColorPicker(false)
         props.setDarkenLayer('none')
-        ref.current.style.zIndex = '0'
+        taskRef.current.style.zIndex = '0'
       }
     }
     document.addEventListener('mousedown', checkIfClickedOutside)
@@ -33,7 +34,7 @@ export function Task(props: IDraggable) {
   return (
     <Draggable draggableId={props.draggableId} index={props.index}>
       {(provided, snapshot) => (
-        <div id="taskContainer" ref={ref} onClick={() => {}}>
+        <div id="taskContainer" ref={taskRef} onClick={() => {}}>
           <div
             onClick={(event) => setClicked(true)}
             ref={provided.innerRef}
@@ -54,14 +55,16 @@ export function Task(props: IDraggable) {
                     const end = event.currentTarget.value.length
                     event.target.setSelectionRange(end, end) // set cursor to the end of text
                     props.setDarkenLayer('block')
-                    if (ref.current) {
-                      ref.current.style.zIndex = '10000'
+                    if (taskRef.current) {
+                      taskRef.current.style.zIndex = '10000'
                     }
                   }}
                   onChange={(event) => {
                     event.currentTarget.style.height = '1px'
                     event.currentTarget.style.height =
                       event.currentTarget.scrollHeight + 'px'
+                  }}
+                  onBlur={(event) => {
                     const newTaskGrid: ITaskType[] = [...props.currTaskGrid]
                     const column: ITaskType = newTaskGrid[props.column - 1]
                     const task: ITask = column.tasks[props.index - 1]
@@ -73,7 +76,6 @@ export function Task(props: IDraggable) {
                         { headers: { id: task._id } }
                       )
                       .then((response) => console.log(response.data))
-                    props.setCurrTaskGrid(newTaskGrid) // WHY DOES IT WORK WITHOUT THIS LINE??
                   }}
                 ></textarea>
               ) : (

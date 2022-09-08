@@ -21,7 +21,7 @@ export function BgColor(props: {
         color={props.bodyBgColor}
         onChange={(event) => {
           axios.put(
-            '/globals',
+            '/globalVars',
             { value: event },
             { headers: { id: 'bodyColor' } }
           ).then((response) => console.log(response.data))
