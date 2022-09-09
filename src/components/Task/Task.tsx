@@ -22,7 +22,6 @@ export function Task(props: IDraggable) {
         taskRef.current.getElementsByTagName('textarea')[0].blur()
         setClicked(false)
         showColorPicker(false)
-        props.setDarkenLayer('none')
         taskRef.current.style.zIndex = '0'
       }
     }
@@ -30,7 +29,7 @@ export function Task(props: IDraggable) {
     return () => {
       document.removeEventListener('mousedown', checkIfClickedOutside)
     }
-  }, [clicked, props])
+  }, [clicked])
 
   return (
     <Draggable draggableId={props.draggableId} index={props.index}>
@@ -53,10 +52,9 @@ export function Task(props: IDraggable) {
                   onFocus={(event) => {
                     event.currentTarget.style.height =
                       event.target.scrollHeight - 1 + 'px'
-                      setCurrHeight(event.target.scrollHeight)
+                    setCurrHeight(event.target.scrollHeight)
                     const end = event.currentTarget.value.length
                     event.target.setSelectionRange(end, end) // set cursor to the end of text
-                    props.setDarkenLayer('block')
                     if (taskRef.current) {
                       taskRef.current.style.zIndex = '10000'
                     }
@@ -65,7 +63,7 @@ export function Task(props: IDraggable) {
                     event.currentTarget.style.height = '1px'
                     event.currentTarget.style.height =
                       event.currentTarget.scrollHeight + 'px'
-                      setCurrHeight(event.currentTarget.scrollHeight)
+                    setCurrHeight(event.currentTarget.scrollHeight)
                   }}
                   onBlur={(event) => {
                     const newTaskGrid: ITaskType[] = [...props.currTaskGrid]
@@ -79,6 +77,7 @@ export function Task(props: IDraggable) {
                         { headers: { id: task._id } }
                       )
                       .then((response) => console.log(response.data))
+                    props.setCurrTaskGrid(newTaskGrid)
                   }}
                 ></textarea>
               ) : (
@@ -93,13 +92,12 @@ export function Task(props: IDraggable) {
             draggableId={props.draggableId}
             clicked={clicked}
             setClicked={setClicked}
-            setDarkenLayer={props.setDarkenLayer}
             color={color}
             setColor={setColor}
             colorPicker={colorPicker}
             showColorPicker={showColorPicker}
             //@ts-ignore
-            height={currHeight+26}
+            height={currHeight + 26}
           ></ContextMenu>
         </div>
       )}

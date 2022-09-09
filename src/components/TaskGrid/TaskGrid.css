@@ -1,9 +1,10 @@
 #taskGridContainer {
   position: relative;
   padding-left: 15px;
+  width: fit-content;
 }
 
-#task-grid {
+#taskGrid {
   display: grid;
   column-gap: 5px;
   grid-template-columns: minmax(auto, 236px);
@@ -12,7 +13,8 @@
   float: left;
 }
 
+
 .addTaskType {
-  float: left;
+  position: absolute;
   padding: 9px;
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import './TaskGrid.css'
 import { Column } from '../Column/Column'
 //import { savedTasks, savedTaskTypes } from './mockData'
@@ -8,13 +8,19 @@ import axios from 'axios'
 
 export function TaskGrid(props: {
   bodyBgColor: string
-  setDarkenLayer: (darkenLayer: string) => void
   savedData: ITaskType[]
+  setCurrTaskGridWidth: (taskGridWidth: string) => void
 }) {
   const [currTaskGrid, setCurrTaskGrid] = useState(props.savedData)
-  return (
-    <div id="taskGridContainer">
-      <div id="task-grid" className="float-left">
+  const taskGridRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    props.setCurrTaskGridWidth(`${taskGridRef.current!.offsetWidth+200}px`)
+  }, [currTaskGrid])
+
+    return (
+    <div id="taskGridContainer" ref={taskGridRef}>
+      <div id="taskGrid" className="float-left">
         <DragDropContext
           onDragEnd={(result) =>
             dragEndHandler(result, currTaskGrid, setCurrTaskGrid)
@@ -31,7 +37,6 @@ export function TaskGrid(props: {
                 tasks={column.tasks}
                 currTaskGrid={currTaskGrid}
                 setCurrTaskGrid={setCurrTaskGrid}
-                setDarkenLayer={props.setDarkenLayer}
               />
             )
           })}

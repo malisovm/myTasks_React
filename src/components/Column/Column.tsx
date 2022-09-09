@@ -97,7 +97,6 @@ export function Column(props: IDroppable) {
                 color={task.color}
                 currTaskGrid={props.currTaskGrid}
                 setCurrTaskGrid={props.setCurrTaskGrid}
-                setDarkenLayer={props.setDarkenLayer}
               />
             )
           })}

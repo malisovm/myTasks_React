@@ -7,7 +7,6 @@ export interface IDraggable {
   color: string
   currTaskGrid: ITaskType[]
   setCurrTaskGrid: (currTaskGrid: ITaskType[]) => void
-  setDarkenLayer: (darkenLayer: string) => void
 }
 
 export interface IDroppable {
@@ -19,7 +18,6 @@ export interface IDroppable {
   tasks: ITask[]
   currTaskGrid: ITaskType[]
   setCurrTaskGrid: (currTaskGrid: ITaskType[]) => void
-  setDarkenLayer: (darkenLayer: string) => void
 }
 
 export interface IContextMenu {currTaskGrid: ITaskType[]
@@ -28,7 +26,6 @@ export interface IContextMenu {currTaskGrid: ITaskType[]
   draggableId: string
   clicked: boolean
   setClicked: (clicked: boolean) => void
-  setDarkenLayer: (darkenLayer: string) => void
   color: string
   setColor: (color: string) => void
   colorPicker: boolean

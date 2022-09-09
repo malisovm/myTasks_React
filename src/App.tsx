@@ -12,11 +12,11 @@ import { ITask, ITaskType } from './interfaces'
 
 function App() {
   const [bodyBgColor, setBodyBgColor] = useState('')
-  const [darkenLayer, setDarkenLayer] = useState('none')
+  document.querySelector('body')!.style.backgroundColor = bodyBgColor
+  const [currTaskGridWidth, setCurrTaskGridWidth] = useState('100%')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(true)
   const [savedData, setSavedData] = useState<ITaskType[]>()
-  document.querySelector('body')!.style.backgroundColor = bodyBgColor
 
   useEffect(() => {
     const getData = async () => {
@@ -57,28 +57,39 @@ function App() {
   if (!error)
     return (
       <BrowserRouter>
-        <div id="darkenLayer" style={{ display: darkenLayer }}></div>
-
-        <Topbar />
         <Routes>
           <Route
             path="/"
             element={
-              <TaskGrid
-                bodyBgColor={bodyBgColor}
-                setDarkenLayer={setDarkenLayer}
-                savedData={savedData!}
-              />
+              <>
+                <Topbar currTaskGridWidth={currTaskGridWidth} />
+                <TaskGrid
+                  bodyBgColor={bodyBgColor}
+                  savedData={savedData!}
+                  setCurrTaskGridWidth={setCurrTaskGridWidth}
+                />
+              </>
             }
           />
-          <Route path="/help" element={<Help />} />
+          <Route
+            path="/help"
+            element={
+              <>
+                <Topbar currTaskGridWidth="100%" />
+                <Help />
+              </>
+            }
+          />
           <Route
             path="/bgColor"
             element={
-              <BgColor
-                bodyBgColor={bodyBgColor}
-                setBodyBgColor={setBodyBgColor}
-              />
+              <>
+                <Topbar currTaskGridWidth="100%" />
+                <BgColor
+                  bodyBgColor={bodyBgColor}
+                  setBodyBgColor={setBodyBgColor}
+                />
+              </>
             }
           />
         </Routes>

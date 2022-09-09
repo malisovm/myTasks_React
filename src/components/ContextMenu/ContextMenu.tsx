@@ -18,7 +18,6 @@ export function ContextMenu(props: IContextMenu) {
             )
             if (taskToRemove) {
               props.setClicked(false)
-              props.setDarkenLayer('none')
               column.tasks.splice(column.tasks.indexOf(taskToRemove), 1)
             }
             column.tasks.forEach((task) => {
