@@ -15,10 +15,10 @@ export function TaskGrid(props: {
   const taskGridRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    props.setCurrTaskGridWidth(`${taskGridRef.current!.offsetWidth+200}px`)
+    props.setCurrTaskGridWidth(`${taskGridRef.current!.offsetWidth + 200}px`)
   }, [currTaskGrid])
 
-    return (
+  return (
     <div id="taskGridContainer" ref={taskGridRef}>
       <div id="taskGrid" className="float-left">
         <DragDropContext

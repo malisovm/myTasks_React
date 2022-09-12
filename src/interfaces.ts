@@ -20,7 +20,8 @@ export interface IDroppable {
   setCurrTaskGrid: (currTaskGrid: ITaskType[]) => void
 }
 
-export interface IContextMenu {currTaskGrid: ITaskType[]
+export interface IContextMenu {
+  currTaskGrid: ITaskType[]
   setCurrTaskGrid: (currTaskGrid: ITaskType[]) => void
   column: number
   draggableId: string

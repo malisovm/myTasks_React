@@ -6,7 +6,10 @@ import axios from 'axios'
 
 export function ContextMenu(props: IContextMenu) {
   return (
-    <div id="contextMenu" style={{ display: props.clicked ? 'block' : 'none', top: props.height }}>
+    <div
+      id="contextMenu"
+      style={{ display: props.clicked ? 'block' : 'none', top: props.height }}
+    >
       <>
         <div
           className="menuItem"
@@ -23,15 +26,17 @@ export function ContextMenu(props: IContextMenu) {
             column.tasks.forEach((task) => {
               task.row = column.tasks.indexOf(task) + 1
             })
-            axios.delete('/tasks', {
-              headers: { id: props.draggableId },
-            })
-            .then((response) => console.log(response.data))
+            axios
+              .delete('/tasks', {
+                headers: { id: props.draggableId },
+              })
+              .then((response) => console.log(response.data))
             props.setCurrTaskGrid(newTaskGrid)
           }}
         >
           Delete
         </div>
+        
         <button
           className="menuItem"
           onClick={(event) => {
@@ -53,12 +58,13 @@ export function ContextMenu(props: IContextMenu) {
               )
               if (taskToChangeColor) {
                 taskToChangeColor.color = event
-                axios.put(
-                  '/tasks',
-                  { color: taskToChangeColor.color },
-                  { headers: { id: taskToChangeColor._id } }
-                )
-                .then((response) => console.log(response.data))
+                axios
+                  .put(
+                    '/tasks',
+                    { color: taskToChangeColor.color },
+                    { headers: { id: taskToChangeColor._id } }
+                  )
+                  .then((response) => console.log(response.data))
               }
               props.setCurrTaskGrid(newTaskGrid)
             }}

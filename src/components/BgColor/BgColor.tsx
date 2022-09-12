@@ -20,11 +20,13 @@ export function BgColor(props: {
         id="bgColorPicker"
         color={props.bodyBgColor}
         onChange={(event) => {
-          axios.put(
-            '/globalVars',
-            { value: event },
-            { headers: { id: 'bodyColor' } }
-          ).then((response) => console.log(response.data))
+          axios
+            .put(
+              '/globalVars',
+              { value: event },
+              { headers: { id: 'bodyColor' } }
+            )
+            .then((response) => console.log(response.data))
           props.setBodyBgColor(event)
         }}
       />

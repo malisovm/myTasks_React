@@ -1,7 +1,7 @@
 #contextMenu {
   position: absolute;
   left: 0px;
-    z-index: 10000;
+  z-index: 10000;
   width: fit-content;
   background: #5d5b64;
   border-radius: 5px;
