@@ -20,8 +20,8 @@ mongoose.connect(
     if (err) return console.log(err)
     else if (mongoose.connection.readyState === 1)
       console.log('Mongoose connection established')
-    expressServer.listen(process.env.PORT || 3001, function () {
-      console.log(`The server is up at PORT ${process.env.PORT || 3001}`)
+    expressServer.listen(process.env.PORT || 3000, function () {
+      console.log(`The server is up at PORT ${process.env.PORT || 3000}`)
     })
   }
 )
